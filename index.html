@@ -300,8 +300,9 @@
     }
     .card-footer {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
       margin-top: 2rem;
       padding-top: 1rem;
       border-top: 1px solid var(--border);
@@ -328,6 +329,39 @@
     }
     .card-link:hover { gap: 0.6rem; }
     .card-link .arrow { font-size: 14px; }
+
+    /* Decorative layers must never intercept clicks: they sit above the links in the
+       project cards and contact box, and invisible elements still catch the mouse. */
+    .hero-grid,
+    .project-card::before,
+    .contact-inner::before { pointer-events: none; }
+
+    /* Links row (supports several links per card) */
+    .card-links { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; }
+
+    /* Headline stats */
+    .card-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 1.8rem;
+      margin-top: 1.5rem;
+    }
+    .stat-value {
+      display: block;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+    .stat-label {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
  
     .coming-soon {
       position: absolute;
@@ -508,35 +542,73 @@
     <p class="section-label reveal">Work</p>
     <div class="projects-header reveal">
       <h2 class="projects-heading">Current<br>Projects</h2>
-      <span class="project-count">00 — 05</span>
+      <span class="project-count">00 — 03</span>
     </div>
  
     <div class="project-grid">
- 
-      <!-- PROJECT 1 — Real example -->
+
+      <!-- PROJECT 001: Tucson housing market -->
       <div class="project-card reveal">
-        <span class="coming-soon">Soon</span>
         <p class="card-num">001</p>
-        <h3 class="card-title">Arizona Real Estate Regression Analysis</h3>
+        <h3 class="card-title">Tucson New Home Market Analysis &amp; Price Predictor</h3>
         <p class="card-desc">
-          An end to end workflow showing the market analysis of Tuscon Arizona homes using regression analysis and Machine Learning to predict future home trends and prices.
+          An end-to-end analysis of the Tucson, AZ new home market for a residential builder: data cleaning, feature engineering, price prediction, trend forecasting, and site and product recommendations. A Ridge Regression model predicts new home prices at R² = 0.793, and an XGBoost model on resale homes reaches R² = 0.849, both cutting naive baseline error by over 60%.
         </p>
+        <div class="card-stats">
+          <div><span class="stat-value">0.793</span><span class="stat-label">New home model R²</span></div>
+          <div><span class="stat-value">0.849</span><span class="stat-label">Resale model R²</span></div>
+          <div><span class="stat-value">4</span><span class="stat-label">Models compared</span></div>
+          <div><span class="stat-value">478</span><span class="stat-label">Closed sales (training)</span></div>
+        </div>
         <div class="card-footer">
           <div class="card-tags">
             <span class="card-tag">Python</span>
             <span class="card-tag">Sci-Kit Learn</span>
-            <span class="card-tag">Linear Regression</span>
-            <span class="card-tag">Time Series Forecasting</span>
+            <span class="card-tag">Ridge Regression</span>
             <span class="card-tag">XG Boost</span>
+            <span class="card-tag">Prophet</span>
+            <span class="card-tag">Streamlit</span>
           </div>
-          <a href="#" class="card-link">View <span class="arrow">→</span></a>
+          <div class="card-links">
+            <a href="https://tucson-home-price-predictor-n94qpptyy3rzszhetoz3nr.streamlit.app/" class="card-link" target="_blank" rel="noopener noreferrer">Live App <span class="arrow">→</span></a>
+            <a href="https://github.com/Treesebranches/tucson-home-price-predictor" class="card-link" target="_blank" rel="noopener noreferrer">Code <span class="arrow">→</span></a>
+          </div>
         </div>
       </div>
- 
-      <!-- PROJECT 2 — Real example -->
+
+      <!-- PROJECT 002: Soccer win probability + player archetypes -->
+      <div class="project-card reveal">
+        <p class="card-num">002</p>
+        <h3 class="card-title">Live Soccer Win Probability &amp; Player Archetypes</h3>
+        <p class="card-desc">
+          A live in-match win-probability model built on StatsBomb event data (2015/16 season), with a pre-match prior that tracks real bookmaker odds at 0.86 correlation. Paired with a player-similarity engine that finds stylistically similar players across four European leagues, built to surface lower-profile alternatives to star names.
+        </p>
+        <div class="card-stats">
+          <div><span class="stat-value">1,140</span><span class="stat-label">Matches modeled</span></div>
+          <div><span class="stat-value">0.86</span><span class="stat-label">Correlation with bookmaker odds</span></div>
+          <div><span class="stat-value">1,435</span><span class="stat-label">Players profiled</span></div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">XG Boost</span>
+            <span class="card-tag">Elo Ratings</span>
+            <span class="card-tag">PCA</span>
+            <span class="card-tag">K-Means</span>
+            <span class="card-tag">Streamlit</span>
+          </div>
+          <div class="card-links">
+            <a href="https://win-probability-app-u8uyde5hd7fdr3e6gr4art.streamlit.app/" class="card-link" target="_blank" rel="noopener noreferrer">Win Probability <span class="arrow">→</span></a>
+            <a href="https://player-similarity-app-lurdy2xncpaeaeoryde4jq.streamlit.app/" class="card-link" target="_blank" rel="noopener noreferrer">Player Similarity <span class="arrow">→</span></a>
+            <a href="https://github.com/Treesebranches/soccer-analytics" class="card-link" target="_blank" rel="noopener noreferrer">Code <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 003: College football NIL (coming soon) -->
       <div class="project-card reveal">
         <span class="coming-soon">Soon</span>
-        <p class="card-num">002</p>
+        <p class="card-num">003</p>
         <h3 class="card-title">College Football NIL Market Analysis</h3>
         <p class="card-desc">
           Trying to make sense of the wild west that is college football using statistical metrics to determine players NIL valuation based on a myriad of factors.
@@ -547,10 +619,12 @@
             <span class="card-tag">Time Series Forecasting</span>
             <span class="card-tag">Random Forest Regressor</span>
           </div>
-          <a href="#" class="card-link">View <span class="arrow">→</span></a>
+          <div class="card-links">
+            <a href="#" class="card-link">View <span class="arrow">→</span></a>
+          </div>
         </div>
       </div>
- 
+
     </div>
   </section>
  
